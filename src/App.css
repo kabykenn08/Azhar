@@ -736,7 +736,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #7d7d7d;
   padding: 20px;
   width: 100vw;
 }
@@ -787,6 +787,7 @@ body {
 .form-group input {
   padding: 14px 16px;
   border: 2px solid #e2e8f0;
+  background-color: #eeeeee;
   border-radius: 10px;
   font-size: 15px;
   transition: all 0.3s;
@@ -801,7 +802,7 @@ body {
 
 .login-btn {
   padding: 14px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: #7495ed;
   color: white;
   border: none;
   border-radius: 10px;
@@ -1141,6 +1142,10 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-bottom: 16px;
+}
+
+.form-group input::placeholder {
+  color: #565656;
 }
 
 .form-grid > div {

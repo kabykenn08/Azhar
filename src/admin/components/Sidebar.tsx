@@ -50,12 +50,6 @@ export default function Sidebar({ systemLang }: SidebarProps) {
         >
           📄 {t.sections}
         </NavLink>
-        <NavLink
-          to="/azhar/admin/pages"
-          className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
-        >
-          📑 {t.pages}
-        </NavLink>
       </nav>
 
       <div className="leave-btn">

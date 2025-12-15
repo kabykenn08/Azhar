@@ -4,7 +4,6 @@ import LoginPage from './components/LoginPage';
 import TranslationsPage from './components/TranslationsPage';
 import MenuManager from './components/MenuManager';
 import SectionsManager from './components/SectionsManager';
-import PagesManager from './components/PagesManager';
 
 export default function AdminRoutes() {
   return (
@@ -17,7 +16,6 @@ export default function AdminRoutes() {
         <Route path="translations" element={<TranslationsPage />} />
         <Route path="menu" element={<MenuManager />} />
         <Route path="sections" element={<SectionsManager />} />
-        <Route path="pages" element={<PagesManager />} />
       </Route>
 
       {/* Редирект на translations после входа */}
