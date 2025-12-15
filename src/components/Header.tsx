@@ -19,6 +19,7 @@ export default function Header() {
   );
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
   const content = useContentStore((s) => s.content);
 
   useEffect(() => {
@@ -48,6 +49,9 @@ export default function Header() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+    if (menuOpen) {
+      setMobileOpenDropdown(null);
+    }
   };
 
   const switchLang = async (lang: "ru" | "kz") => {
@@ -60,17 +64,24 @@ export default function Header() {
     return content[key] || key;
   };
 
-  const headerTitle = getText("header.title");
   const mainItems = menuItems.filter(item => !item.parent_id);
   
   const getSubItems = (parentId: string) => {
     return menuItems.filter(item => item.parent_id === parentId);
   };
 
-  // Функция плавного скролла вверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setMenuOpen(false);
+  };
+
+  // Функция для переключения подменю (открыть/закрыть)
+  const toggleMobileDropdown = (itemId: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setMobileOpenDropdown(prev => prev === itemId ? null : itemId);
   };
 
   return (
@@ -87,7 +98,7 @@ export default function Header() {
             <div className="logo-mark" onClick={scrollToTop}>
               <img src={logo} alt="Логотип" />
             </div>
-            <span>{headerTitle}</span>
+            <span>{getText("header.title")}</span>
           </a>
 
           <button
@@ -113,17 +124,42 @@ export default function Header() {
                     onMouseEnter={() => setActiveDropdown(item.id)}
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    <span className="nav-link">
-                      {getText(item.key)}
-                    </span>
+                    {/* Родительский пункт */}
+                    <div 
+                      className="nav-link with-submenu"
+                      onClick={(e) => toggleMobileDropdown(item.id, e)}
+                    >
+                      <span className="nav-link-text">{getText(item.key)}</span>
+                      <svg 
+                        className={`dropdown-arrow ${mobileOpenDropdown === item.id ? 'rotated' : ''}`}
+                        width="12" 
+                        height="12" 
+                        viewBox="0 0 12 12" 
+                        fill="none"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleMobileDropdown(item.id, e);
+                        }}
+                      >
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </div>
                     
-                    <div className={`dropdown-menu ${activeDropdown === item.id ? 'active' : ''}`}>
+                    {/* Подменю */}
+                    <div 
+                      className={`dropdown-menu ${
+                        activeDropdown === item.id || mobileOpenDropdown === item.id ? 'active' : ''
+                      }`}
+                    >
                       {subItems.map((subItem) => (
                         <a 
                           key={subItem.id}
                           href={subItem.url}
                           className="dropdown-item"
-                          onClick={() => setMenuOpen(false)}
+                          onClick={() => {
+                            setMenuOpen(false);
+                            setMobileOpenDropdown(null);
+                          }}
                         >
                           {getText(subItem.key)}
                         </a>
