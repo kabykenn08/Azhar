@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react';
 
-export function useIntersectionObserver(options?: IntersectionObserverInit) {
+export function useIntersectionObserver(options?: IntersectionObserverInit): [Dispatch<SetStateAction<HTMLElement | null>>, IntersectionObserverEntry | null] {
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
   const [node, setNode] = useState<HTMLElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);

@@ -10,10 +10,14 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          admin: [/src\/admin/],
-        },
+        manualChunks(id) {
+          if (id.includes('src/admin')) {
+            return 'admin';
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
       },
     },
   },

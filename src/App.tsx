@@ -82,28 +82,46 @@ export default function MainSite() {
 
     const { data: pageSections, error: pageSectionsError } = await supabase
       .from("page_sections")
-      .select(`
-        order_index,
-        sections (
-          *,
-          items:section_items (
-            *
-          )
-        )
-      `)
+      .select("section_id, order_index")
       .eq("page_id", homePage.id)
-      .eq("is_visible", true)
-      .order("order_index");
+      .eq("is_visible", true);
 
     if (pageSectionsError) {
       console.error("Error fetching page sections:", pageSectionsError);
-    } else if (pageSections) {
-        const sortedSections = pageSections.map(ps => ({
-            ...ps.sections,
-            order_index: ps.order_index,
-        }));
+      setSectionsLoaded(true);
+      return;
+    }
+
+    if (!pageSections || pageSections.length === 0) {
+      setSectionsLoaded(true);
+      return;
+    }
+
+    const sectionIds = pageSections.map((ps) => ps.section_id);
+
+    const { data: sectionsData, error: sectionsError } = await supabase
+      .from("sections")
+      .select(`
+        *,
+        items:section_items (
+          *
+        )
+      `)
+      .in("id", sectionIds)
+      .eq("is_active", true);
+
+    if (sectionsError) {
+      console.error("Error fetching sections:", sectionsError);
+      setSectionsLoaded(true);
+      return;
+    }
+    
+    if (sectionsData) {
+      const orderMap = new Map(pageSections.map(ps => [ps.section_id, ps.order_index]));
+      const sortedSections = sectionsData.sort((a, b) => (orderMap.get(a.id) ?? 0) - (orderMap.get(b.id) ?? 0));
       setSections(sortedSections);
     }
+
     setSectionsLoaded(true);
   };
 
