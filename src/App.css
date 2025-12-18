@@ -855,7 +855,7 @@ body {
 
 .login-btn {
   padding: 14px;
-  background: #7495ed;
+  background: #334d94;
   color: white;
   border: none;
   border-radius: 10px;
@@ -869,6 +869,7 @@ body {
 
 .login-btn:hover:not(:disabled) {
   transform: translateY(-2px);
+  background: #597bd9;
   box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
 }
 

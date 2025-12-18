@@ -104,6 +104,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              placeholder="Введите пароль"
             />
           </div>
           

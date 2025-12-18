@@ -1017,7 +1017,7 @@ footer {
 /* адаптив */
 @media (min-width: 769px) {
   .dropdown-arrow {
-    display: none;
+    display: none !important;
   }
   
   .nav-item-wrapper.has-dropdown:hover .dropdown-menu {
@@ -1323,19 +1323,24 @@ footer {
   
   /* Родительский пункт (например "Контакты") - выглядит как обычный пункт меню */
   nav.active .nav-link.with-submenu {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0.875rem 0 !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-    border-bottom: 1px solid #E2E8F0 !important;
-    color: #334155;
-    font-weight: 500;
-    font-size: 0.9375rem;
-    cursor: pointer;
-  }
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.875rem 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  color: #334155;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+nav.active .nav-link.with-submenu:hover {
+  color: #0A66C2;
+}
   
   nav.active .nav-link-text {
     flex: 1;
@@ -1347,37 +1352,48 @@ footer {
   }
   
   /* Стрелка раскрытия - акцентированная и заметная */
-  nav.active .dropdown-arrow {
-    display: block !important;
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    opacity: 0.7;
-    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.2s ease;
-    cursor: pointer;
-    padding: 6px;
-    margin: -6px;
-    border-radius: 4px;
-  }
-  
-  nav.active .dropdown-arrow:hover {
-    opacity: 1;
-    background-color: rgba(10, 102, 194, 0.1);
-  }
-  
-  nav.active .dropdown-arrow:active {
-    background-color: rgba(10, 102, 194, 0.2);
-    transform: scale(0.95);
-  }
-  
-  nav.active .dropdown-arrow.rotated {
-    transform: rotate(180deg);
-    opacity: 1;
-  }
-  
-  nav.active .dropdown-arrow.rotated:hover {
-    background-color: rgba(10, 102, 194, 0.15);
-  }
+  /* Стрелка раскрытия - акцентированная и заметная */
+nav.active .dropdown-arrow {
+  display: block !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  flex-shrink: 0;
+  opacity: 0.9;
+  color: #1e293b !important;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.2s ease;
+  cursor: pointer;
+  padding: 6px;
+  margin: -6px -6px -6px 8px !important;
+  border-radius: 6px;
+  background: rgba(100, 116, 139, 0.08);
+}
+
+nav.active .dropdown-arrow:hover {
+  opacity: 1;
+  background-color: rgba(10, 102, 194, 0.15) !important;
+  color: #0A66C2 !important;
+}
+
+nav.active .dropdown-arrow:active {
+  background-color: rgba(10, 102, 194, 0.25) !important;
+  transform: scale(0.92) !important;
+}
+
+nav.active .dropdown-arrow.rotated {
+  transform: rotate(180deg) !important;
+  opacity: 1;
+  background-color: rgba(10, 102, 194, 0.12) !important;
+}
+
+nav.active .dropdown-arrow.rotated:hover {
+  background-color: rgba(10, 102, 194, 0.2) !important;
+}
+
+nav.active .dropdown-arrow path {
+  stroke-width: 2.8 !important;
+}
   
   /* Подменю - ПО УМОЛЧАНИЮ СКРЫТО */
   nav.active .nav-item-wrapper.has-dropdown .dropdown-menu {

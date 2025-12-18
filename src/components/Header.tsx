@@ -75,12 +75,10 @@ export default function Header() {
     setMenuOpen(false);
   };
 
-  // Функция для переключения подменю (открыть/закрыть)
-  const toggleMobileDropdown = (itemId: string, e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+  // Функция для переключения подменю (только для стрелки)
+  const toggleMobileDropdown = (itemId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setMobileOpenDropdown(prev => prev === itemId ? null : itemId);
   };
 
@@ -90,7 +88,6 @@ export default function Header() {
         id="overlay"
         className={menuOpen ? "active overlay" : "overlay"}
         onClick={(e) => {
-          // Закрываем только меню, но не подпункты при клике вне меню
           const target = e.target as HTMLElement;
           if (target.id === 'overlay' || target.classList.contains('overlay')) {
             setMenuOpen(false);
@@ -131,38 +128,27 @@ export default function Header() {
                     onMouseEnter={() => setActiveDropdown(item.id)}
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    {/* Родительский пункт */}
-                    <div 
+                    {/* Родительский пункт с кликабельной ссылкой и стрелкой */}
+                    <a 
+                      href={item.url}
                       className="nav-link with-submenu"
-                      onClick={(e) => {
-                        // Клик по тексту тоже переключает подменю
-                        const target = e.target as HTMLElement;
-                        if (!target.closest('.dropdown-arrow')) {
-                          toggleMobileDropdown(item.id, e);
-                        }
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setMobileOpenDropdown(null);
                       }}
                     >
                       <span className="nav-link-text">{getText(item.key)}</span>
                       <svg 
                         className={`dropdown-arrow ${mobileOpenDropdown === item.id ? 'rotated' : ''}`}
-                        width="14" 
-                        height="14" 
+                        width="20" 
+                        height="20" 
                         viewBox="0 0 12 12" 
                         fill="none"
-                        style={{
-                          cursor: 'pointer',
-                          transition: 'transform 0.3s ease, opacity 0.3s ease',
-                          opacity: mobileOpenDropdown === item.id ? 1 : 0.6
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          toggleMobileDropdown(item.id, e);
-                        }}
+                        onClick={(e) => toggleMobileDropdown(item.id, e)}
                       >
-                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </div>
+                    </a>
                     
                     {/* Подменю */}
                     <div 
