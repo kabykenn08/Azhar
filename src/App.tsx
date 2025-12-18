@@ -46,85 +46,64 @@ export default function MainSite() {
   }, [isReady]);
 
   const loadSections = async () => {
-    const { data: homePage } = await supabase
+    const { data: homePage, error: homePageError } = await supabase
       .from("pages")
       .select("id")
       .eq("is_home", true)
       .eq("is_active", true)
       .single();
 
-    if (!homePage) {
-      const { data: sectionsData } = await supabase
-        .from("sections")
-        .select("*")
-        .eq("is_active", true)
-        .order("order_index");
-
-      if (sectionsData) {
-        const sectionsWithItems = await Promise.all(
-          sectionsData.map(async (section) => {
-            const { data: items } = await supabase
-              .from("section_items")
-              .select("*")
-              .eq("section_id", section.id)
-              .order("order_index");
-
-            return {
-              ...section,
-              items: items || [],
-            };
-          })
-        );
-        setSections(sectionsWithItems);
-        setSectionsLoaded(true);
-      }
-      return;
-    }
-
-    const { data: pageSections } = await supabase
-      .from("page_sections")
-      .select("section_id, order_index")
-      .eq("page_id", homePage.id)
-      .eq("is_visible", true)
-      .order("order_index");
-
-    if (!pageSections || pageSections.length === 0) {
+    if (homePageError && homePageError.code !== 'PGRST116') { // PGRST116: "Not a single row was returned"
+      console.error("Error fetching home page:", homePageError);
       setSectionsLoaded(true);
       return;
     }
 
-    const sectionIds = pageSections.map((ps) => ps.section_id);
-    
-    const { data: sectionsData } = await supabase
-      .from("sections")
-      .select("*")
-      .in("id", sectionIds)
-      .eq("is_active", true);
+    if (!homePage) {
+      const { data: sectionsData, error: sectionsError } = await supabase
+        .from("sections")
+        .select(`
+          *,
+          items:section_items (
+            *
+          )
+        `)
+        .eq("is_active", true)
+        .order("order_index");
 
-    if (!sectionsData) return;
+      if (sectionsError) {
+        console.error("Error fetching sections:", sectionsError);
+      } else if (sectionsData) {
+        setSections(sectionsData);
+      }
+      setSectionsLoaded(true);
+      return;
+    }
 
-    const sectionsWithItems = await Promise.all(
-      sectionsData.map(async (section) => {
-        const { data: items } = await supabase
-          .from("section_items")
-          .select("*")
-          .eq("section_id", section.id)
-          .order("order_index");
+    const { data: pageSections, error: pageSectionsError } = await supabase
+      .from("page_sections")
+      .select(`
+        order_index,
+        sections (
+          *,
+          items:section_items (
+            *
+          )
+        )
+      `)
+      .eq("page_id", homePage.id)
+      .eq("is_visible", true)
+      .order("order_index");
 
-        return {
-          ...section,
-          items: items || [],
-        };
-      })
-    );
-
-    const sortedSections = sectionsWithItems.sort((a, b) => {
-      const orderA = pageSections.find((ps) => ps.section_id === a.id)?.order_index || 0;
-      const orderB = pageSections.find((ps) => ps.section_id === b.id)?.order_index || 0;
-      return orderA - orderB;
-    });
-
-    setSections(sortedSections);
+    if (pageSectionsError) {
+      console.error("Error fetching page sections:", pageSectionsError);
+    } else if (pageSections) {
+        const sortedSections = pageSections.map(ps => ({
+            ...ps.sections,
+            order_index: ps.order_index,
+        }));
+      setSections(sortedSections);
+    }
     setSectionsLoaded(true);
   };
 
