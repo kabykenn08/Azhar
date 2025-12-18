@@ -921,10 +921,20 @@ nav a:hover::before {
   font-weight: 600;
 }
 
+.contact-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .contact-details p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9375rem;
   line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  margin: 0;
 }
 
 .contact-details a {
@@ -1336,22 +1346,37 @@ footer {
     display: none !important;
   }
   
-  /* Стрелка раскрытия - маленькая и ненавязчивая */
+  /* Стрелка раскрытия - акцентированная и заметная */
   nav.active .dropdown-arrow {
     display: block !important;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
-    opacity: 0.5;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.7;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.2s ease;
     cursor: pointer;
-    padding: 4px;
-    margin: -4px;
+    padding: 6px;
+    margin: -6px;
+    border-radius: 4px;
+  }
+  
+  nav.active .dropdown-arrow:hover {
+    opacity: 1;
+    background-color: rgba(10, 102, 194, 0.1);
+  }
+  
+  nav.active .dropdown-arrow:active {
+    background-color: rgba(10, 102, 194, 0.2);
+    transform: scale(0.95);
   }
   
   nav.active .dropdown-arrow.rotated {
     transform: rotate(180deg);
-    opacity: 0.7;
+    opacity: 1;
+  }
+  
+  nav.active .dropdown-arrow.rotated:hover {
+    background-color: rgba(10, 102, 194, 0.15);
   }
   
   /* Подменю - ПО УМОЛЧАНИЮ СКРЫТО */

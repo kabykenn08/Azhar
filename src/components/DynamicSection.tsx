@@ -183,7 +183,43 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
                             ))}
                           </>
                         ) : (
-                          <p>{item.content_key_text && useText(item.content_key_text)}</p>
+                          <div className="contact-text-wrapper">
+                            {item.content_key_text && (() => {
+                              const text = useText(item.content_key_text);
+                              // Разбиваем текст по слову "Обед:" или другим маркерам обеда
+                              const lunchMarkers = /(Обед:|Lunch:|Ас:|Ас таймағы:|Демалыс:)/i;
+                              const match = text.match(lunchMarkers);
+                              if (match) {
+                                const marker = match[0];
+                                const index = match.index!;
+                                const beforeLunch = text.substring(0, index).trim();
+                                const afterLunch = text.substring(index + marker.length).trim();
+                                
+                                const result = [];
+                                if (beforeLunch) {
+                                  result.push(beforeLunch);
+                                }
+                                if (afterLunch) {
+                                  // Убеждаемся, что после двоеточия один пробел
+                                  const lunchText = marker + ' ' + afterLunch;
+                                  result.push(lunchText);
+                                }
+                                
+                                return result.map((line, idx) => (
+                                  <p key={idx}>{line}</p>
+                                ));
+                              }
+                              // Если нет маркеров обеда, разбиваем по точкам
+                              const lines = text.split(/[.。]/).filter(line => line.trim());
+                              if (lines.length > 1) {
+                                return lines.map((line, idx) => (
+                                  <p key={idx}>{line.trim()}{idx < lines.length - 1 ? '.' : ''}</p>
+                                ));
+                              }
+                              // Если ничего не подошло, возвращаем как есть
+                              return <p>{text}</p>;
+                            })()}
+                          </div>
                         )}
                       </div>
                     </div>

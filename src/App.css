@@ -267,12 +267,14 @@ body {
   max-width: 320px;
   font-size: 14px;
   transition: all 0.3s;
-  background-color: #dedede;
-  color: #6f6f6f;
+  background-color: white;
+  color: #1e293b;
 }
 
 .search-input:focus {
   outline: none;
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
 }
 
   .login-lang-switcher {
@@ -399,17 +401,21 @@ body {
 .edit-textarea {
   flex: 1;
   padding: 12px;
-  border: 2px solid #3b82f6;
   border-radius: 10px;
   font-family: inherit;
   resize: vertical;
   min-height: 80px;
   font-size: 14px;
+  background: white;
+  color: #1e293b;
+  border: 2px solid #e2e8f0;
 }
 
 .edit-textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  border-color: #94a3b8;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.1);
 }
 
 /* меню менеджер */
@@ -531,9 +537,47 @@ body {
   background: #e2e8f0;
 }
 
+.btn-icon.btn-edit {
+  background: #cbd5e1;
+  color: #475569;
+}
+
+.btn-icon.btn-edit:hover {
+  background: #94a3b8;
+  color: #334155;
+}
+
+.btn-icon.delete {
+  background: #cbd5e1;
+  color: #475569;
+}
+
 .btn-icon.delete:hover {
-  background: #fee2e2;
-  color: #dc2626;
+  background: #94a3b8;
+  color: #334155;
+}
+
+/* Кнопки редактирования и удаления в разделах "Меню" и "Секции" - одинаковый серый фон */
+.menu-manager .btn-icon,
+.menu-manager .btn-icon.btn-edit,
+.menu-manager .btn-icon.delete,
+.sections-manager .btn-icon,
+.sections-manager .btn-icon.btn-edit,
+.sections-manager .btn-icon.delete,
+.sections-manager .btn-edit-mini {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.menu-manager .btn-icon:hover,
+.menu-manager .btn-icon.btn-edit:hover,
+.menu-manager .btn-icon.delete:hover,
+.sections-manager .btn-icon:hover,
+.sections-manager .btn-icon.btn-edit:hover,
+.sections-manager .btn-icon.delete:hover,
+.sections-manager .btn-edit-mini:hover {
+  background: #cbd5e1;
+  color: #334155;
 }
 
 .sub-items {
@@ -592,12 +636,15 @@ body {
   font-size: 14px;
   transition: all 0.3s;
   flex: 1;
+  background: white;
+  color: #1e293b;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #94a3b8;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
 }
 
 .menu-item-edit {
@@ -680,8 +727,8 @@ body {
 /* кнопки */
 .btn-edit {
   padding: 8px 16px;
-  background: #3b82f6;
-  color: white;
+  background: #cbd5e1;
+  color: #475569;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -693,8 +740,19 @@ body {
 }
 
 .btn-edit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: #94a3b8;
+  color: #334155;
+}
+
+/* Кнопки редактирования в разделе "Переводы" - синий фон */
+.translations-page .btn-edit {
+  background: #3b82f6;
+  color: white;
+}
+
+.translations-page .btn-edit:hover {
+  background: #2563eb;
+  color: white;
 }
 
 .btn-save {
@@ -716,7 +774,7 @@ body {
 
 .btn-cancel {
   padding: 10px 18px;
-  background: #64748b;
+  background: #dc2626;
   color: white;
   border: none;
   border-radius: 10px;
@@ -727,7 +785,7 @@ body {
 }
 
 .btn-cancel:hover {
-  background: #475569;
+  background: #b91c1c;
 }
 
 /* логин */
@@ -1040,7 +1098,8 @@ body {
 /* Кнопка редактирования (мини) */
 .btn-edit-mini {
   padding: 6px 10px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: #cbd5e1;
+  color: #475569;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -1051,8 +1110,8 @@ body {
 }
 
 .btn-edit-mini:hover {
-  transform: scale(1.05) translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: #94a3b8;
+  color: #334155;
 }
 
 /* Режим редактирования перевода */
@@ -1063,8 +1122,8 @@ body {
   padding: 12px;
   background: white;
   border-radius: 8px;
-  border: 2px solid #3b82f6;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+  border: 2px solid #94a3b8;
+  box-shadow: 0 4px 16px rgba(148, 163, 184, 0.15);
   flex: 1;
 }
 
@@ -1079,12 +1138,15 @@ body {
   min-height: 70px;
   line-height: 1.6;
   transition: all 0.2s;
+  background: white;
+  color: #1e293b;
 }
 
 .inline-edit-textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #94a3b8;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
 }
 
 /* Мини кнопки сохранения/отмены */
@@ -1114,10 +1176,12 @@ body {
 }
 
 .btn-cancel-mini {
+  background: #dc2626;
   color: white;
 }
 
 .btn-cancel-mini:hover {
+  background: #b91c1c;
   transform: translateY(-1px);
 }
 
@@ -1159,7 +1223,8 @@ body {
 
 .form-grid input[type="text"],
 .form-grid input[type="number"],
-.form-grid select {
+.form-grid select,
+.form-grid textarea {
   padding: 10px 14px;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
@@ -1171,10 +1236,12 @@ body {
 
 .form-grid input[type="text"]:focus,
 .form-grid input[type="number"]:focus,
-.form-grid select:focus {
+.form-grid select:focus,
+.form-grid textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #94a3b8;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
 }
 
 .form-grid input[type="checkbox"] {
@@ -1206,7 +1273,8 @@ body {
 
 .btn-edit-mini:hover {
   transform: none;
-  background: #e2e8f0;
+  background: #94a3b8;
+  color: #334155;
 }
 
 .btn-save-mini:hover {
@@ -1216,7 +1284,7 @@ body {
 
 .btn-cancel-mini:hover {
   transform: none;
-  background: #475569;
+  background: #b91c1c;
 }
 
 .pages-manager {
@@ -2057,5 +2125,201 @@ body {
   .btn-preview {
     padding: 9px 16px;
     font-size: 12px;
+  }
+}
+
+/* Модальное окно предпросмотра */
+.preview-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.preview-modal-content {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background: #0f172a;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.preview-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: #1e293b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.preview-modal-header h3 {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.preview-modal-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.preview-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preview-btn.refresh {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.preview-btn.refresh:hover {
+  background: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+.preview-btn.new-tab {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.preview-btn.new-tab:hover {
+  background: rgba(16, 185, 129, 0.3);
+  transform: translateY(-1px);
+}
+
+.preview-btn.close {
+  background: #dc2626;
+  color: white;
+  border: 1px solid #dc2626;
+  padding: 10px 14px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.preview-btn.close:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.preview-modal-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.preview-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+.preview-btn-header {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.3);
+  white-space: nowrap;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-btn-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
+}
+
+@media (max-width: 768px) {
+  .preview-modal-content {
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .preview-modal-header {
+    padding: 16px;
+  }
+
+  .preview-modal-header h3 {
+    font-size: 16px;
+  }
+
+  .preview-modal-actions {
+    gap: 8px;
+  }
+
+  .preview-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .preview-btn.close {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+
+  .preview-btn.refresh,
+  .preview-btn.new-tab {
+    display: none;
   }
 }

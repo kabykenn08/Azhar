@@ -89,7 +89,14 @@ export default function Header() {
       <div
         id="overlay"
         className={menuOpen ? "active overlay" : "overlay"}
-        onClick={() => setMenuOpen(false)}
+        onClick={(e) => {
+          // Закрываем только меню, но не подпункты при клике вне меню
+          const target = e.target as HTMLElement;
+          if (target.id === 'overlay' || target.classList.contains('overlay')) {
+            setMenuOpen(false);
+            setMobileOpenDropdown(null);
+          }
+        }}
       ></div>
 
       <header id="header">
@@ -127,21 +134,33 @@ export default function Header() {
                     {/* Родительский пункт */}
                     <div 
                       className="nav-link with-submenu"
-                      onClick={(e) => toggleMobileDropdown(item.id, e)}
+                      onClick={(e) => {
+                        // Клик по тексту тоже переключает подменю
+                        const target = e.target as HTMLElement;
+                        if (!target.closest('.dropdown-arrow')) {
+                          toggleMobileDropdown(item.id, e);
+                        }
+                      }}
                     >
                       <span className="nav-link-text">{getText(item.key)}</span>
                       <svg 
                         className={`dropdown-arrow ${mobileOpenDropdown === item.id ? 'rotated' : ''}`}
-                        width="12" 
-                        height="12" 
+                        width="14" 
+                        height="14" 
                         viewBox="0 0 12 12" 
                         fill="none"
+                        style={{
+                          cursor: 'pointer',
+                          transition: 'transform 0.3s ease, opacity 0.3s ease',
+                          opacity: mobileOpenDropdown === item.id ? 1 : 0.6
+                        }}
                         onClick={(e) => {
                           e.stopPropagation();
+                          e.preventDefault();
                           toggleMobileDropdown(item.id, e);
                         }}
                       >
-                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>
                     

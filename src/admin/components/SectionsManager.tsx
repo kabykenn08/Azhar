@@ -35,8 +35,6 @@ const translations = {
     titleTextLabel: "Текст заголовка по ключу",
     contentTextLabel: "Основной текст по ключу",
     itemFormTitlePrefix: "Редактирование элемента",
-    filterByPage: "Фильтр по странице:",
-    allPages: "Все страницы",
   },
   kz: {
     sectionsManagement: "Секцияларды басқару",
@@ -70,8 +68,6 @@ const translations = {
     titleTextLabel: "Тақырып мәтіні",
     contentTextLabel: "Негізгі мәтін",
     itemFormTitlePrefix: "Элементті өңдеу",
-    filterByPage: "Бет бойынша сүзгі:",
-    allPages: "Барлық беттер",
   },
 };
 
@@ -217,8 +213,6 @@ export default function SectionsManager() {
   const [editingTranslationKey, setEditingTranslationKey] = useState<string | null>(null);
   const [editingTranslationValue, setEditingTranslationValue] = useState("");
   const [reloadTrigger, setReloadTrigger] = useState(0);
-  const [pages, setPages] = useState<any[]>([]);
-  const [selectedPageId, setSelectedPageId] = useState<string>("");
 
   const [editSectionData, setEditSectionData] = useState({
     section_key: "",
@@ -241,40 +235,14 @@ export default function SectionsManager() {
 
   useEffect(() => {
     loadSections();
-    loadPages();
   }, []);
 
-  const loadPages = async () => {
-  const { data } = await supabase
-    .from("pages")
-    .select("id, slug, title_key")
-    .eq("is_active", true)
+  const loadSections = async () => {
+  const { data: sectionsData } = await supabase
+    .from("sections")
+    .select("*")
     .order("order_index");
   
-  if (data) setPages(data);
-};
-
-  const loadSections = async (pageId?: string) => {
-  let query = supabase.from("sections").select("*").order("order_index");
-  
-  // Если выбрана страница, загружаем только её секции
-  if (pageId) {
-    const { data: pageSections } = await supabase
-      .from("page_sections")
-      .select("section_id")
-      .eq("page_id", pageId);
-    
-    if (pageSections && pageSections.length > 0) {
-      const sectionIds = pageSections.map(ps => ps.section_id);
-      query = query.in("id", sectionIds);
-    } else {
-      // Если у страницы нет секций, показываем пустой список
-      setSections([]);
-      return;
-    }
-  }
-
-  const { data: sectionsData } = await query;
   if (!sectionsData) return;
 
   const sectionsWithItems: Section[] = await Promise.all(
@@ -559,41 +527,9 @@ export default function SectionsManager() {
       <div className="page-header">
         <h2>{t.sectionsManagement}</h2>
 
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <label style={{ fontSize: '14px', color: '#64748b', fontWeight: 600 }}>
-              {t.filterByPage}
-            </label>
-
-            <select
-              value={selectedPageId}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const value = e.target.value;
-                setSelectedPageId(value);
-                loadSections(value || undefined);
-              }}
-              style={{
-                padding: '8px 12px',
-                border: '2px solid #e2e8f0',
-                borderRadius: '8px',
-                fontSize: '14px',
-                minWidth: '200px',
-              }}
-            >
-              <option value="">{t.allPages}</option>
-      
-              {pages.map((page: { id: string; slug: string }) => (
-                <option key={page.id} value={page.id}>
-                  {page.slug}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button onClick={startAddSection} className="btn-add">
-            {t.addSection}
-          </button>
-        </div>
+        <button onClick={startAddSection} className="btn-add">
+          {t.addSection}
+        </button>
       </div>
 
 
@@ -1016,7 +952,7 @@ export default function SectionsManager() {
                             className="form-input"
                             style={{
                               width: "100%",
-                              minHeight: 60,
+                              minHeight: 120,
                               marginTop: 8,
                             }}
                           />
@@ -1167,7 +1103,7 @@ export default function SectionsManager() {
                                   className="form-input"
                                   style={{
                                     width: "100%",
-                                    minHeight: 60,
+                                    minHeight: 120,
                                     marginTop: 8,
                                   }}
                                 />

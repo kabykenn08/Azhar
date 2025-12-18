@@ -5,6 +5,7 @@ const translations = {
     contentLang: "Язык контента",
     logout: "Выход",
     totalKeys: "Всего ключей",
+    preview: "Предпросмотр",
   },
   kz: {
     adminPanel: "Басқару панелі",
@@ -12,6 +13,7 @@ const translations = {
     contentLang: "Мазмұн тілі",
     logout: "Шығу",
     totalKeys: "Барлығы кілттер",
+    preview: "Алдын ала қарау",
   },
 };
 
@@ -22,6 +24,7 @@ interface HeaderProps {
   setContentLang: (lang: "ru" | "kz") => void;
   onLogout: () => void;
   totalKeys: number;
+  onPreviewClick: () => void;
 }
 
 export default function Header({ 
@@ -30,7 +33,8 @@ export default function Header({
   contentLang, 
   setContentLang,
   onLogout,
-  totalKeys
+  totalKeys,
+  onPreviewClick
 }: HeaderProps) {
   const t = translations[systemLang];
 
@@ -84,6 +88,9 @@ export default function Header({
                 </button>
               </div>
             </div>
+            <button className="preview-btn-header" onClick={onPreviewClick} title={t.preview}>
+              {t.preview}
+            </button>
             <button className="logout-btn" onClick={onLogout}>{t.logout}</button>
           </div>
         </div>

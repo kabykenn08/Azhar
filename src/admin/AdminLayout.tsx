@@ -3,6 +3,7 @@ import { Outlet, Navigate, useNavigate } from 'react-router-dom';
 import { supabase } from '../cms/supabaseClient';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import PreviewModal from './components/PreviewModal';
 
 export default function AdminLayout() {
   const [loading, setLoading] = useState(true);
@@ -10,6 +11,7 @@ export default function AdminLayout() {
   const [systemLang, setSystemLang] = useState<"ru" | "kz">("ru");
   const [contentLang, setContentLang] = useState<"ru" | "kz">("ru");
   const [totalKeys, setTotalKeys] = useState(0);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,6 +66,14 @@ export default function AdminLayout() {
     navigate('/azhar/admin');
   };
 
+  const handlePreviewClick = () => {
+    setIsPreviewOpen(true);
+  };
+
+  const handlePreviewClose = () => {
+    setIsPreviewOpen(false);
+  };
+
   if (loading) {
     return (
       <div style={{ 
@@ -95,10 +105,17 @@ export default function AdminLayout() {
           setContentLang={handleContentLangChange}
           onLogout={handleLogout}
           totalKeys={totalKeys}
+          onPreviewClick={handlePreviewClick}
         />
         
         <Outlet context={{ contentLang, systemLang, setTotalKeys }} />
       </div>
+
+      <PreviewModal 
+        isOpen={isPreviewOpen}
+        onClose={handlePreviewClose}
+        systemLang={systemLang}
+      />
     </div>
   );
 }
