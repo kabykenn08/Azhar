@@ -53,7 +53,7 @@ export default function MainSite() {
       .eq("is_active", true)
       .single();
 
-    if (homePageError && homePageError.code !== 'PGRST116') { // PGRST116: "Not a single row was returned"
+    if (homePageError && homePageError.code !== 'PGRST116') { 
       console.error("Error fetching home page:", homePageError);
       setSectionsLoaded(true);
       return;
@@ -202,8 +202,8 @@ export default function MainSite() {
     );
   }
 
-  // Рендерим ВСЕ секции, включая footer
-  // Footer должен иметь section_type === "footer" в БД
+  
+  
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Header />

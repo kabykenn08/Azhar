@@ -75,7 +75,7 @@ export default function Header() {
     setMenuOpen(false);
   };
 
-  // Функция для переключения подменю (только для стрелки)
+  
   const toggleMobileDropdown = (itemId: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -128,7 +128,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveDropdown(item.id)}
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    {/* Родительский пункт с кликабельной ссылкой и стрелкой */}
+                    {}
                     <a 
                       href={item.url}
                       className="nav-link with-submenu"
@@ -150,7 +150,7 @@ export default function Header() {
                       </svg>
                     </a>
                     
-                    {/* Подменю */}
+                    {}
                     <div 
                       className={`dropdown-menu ${
                         activeDropdown === item.id || mobileOpenDropdown === item.id ? 'active' : ''

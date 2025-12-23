@@ -270,7 +270,7 @@ export default function SectionsManager() {
     });
   };
 
-  // === СЕКЦИИ ===
+  
 
   const startAddSection = () => {
     const maxOrder = Math.max(...sections.map((s) => s.order_index), 0);
@@ -362,7 +362,7 @@ export default function SectionsManager() {
     loadSections();
   };
 
-  // === ЭЛЕМЕНТЫ СЕКЦИИ ===
+  
 
   const startAddItem = (sectionId: string, items: SectionItem[]) => {
     const maxOrder = Math.max(...items.map((i) => i.order_index), -1);
@@ -834,7 +834,7 @@ export default function SectionsManager() {
                     {t.items}
                   </h3>
 
-                  {/* форма добавления item */}
+                  {}
                   {addingItemToSection === section.id && (
                     <div className="item-card">
                       <div className="item-form">
@@ -976,7 +976,7 @@ export default function SectionsManager() {
                     </div>
                   )}
 
-                  {/* список items */}
+                  {}
                   <div className="items-list">
                     {(section.items || []).map((item, itemIdx) => {
                       const isEditingItem = editingItemId === item.id;

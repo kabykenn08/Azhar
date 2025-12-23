@@ -29,7 +29,7 @@ interface Translation {
 }
 
 export default function TranslationsPage() {
-  // Получаем данные из AdminLayout через useOutletContext
+  
   const { contentLang, systemLang, setTotalKeys } = useOutletContext<{
     contentLang: "ru" | "kz";
     systemLang: "ru" | "kz";
@@ -54,7 +54,7 @@ export default function TranslationsPage() {
 
     if (!error && data) {
       setTranslationsList(data);
-      setTotalKeys(data.length); // Обновляем счётчик в хедере
+      setTotalKeys(data.length); 
     }
   };
 
