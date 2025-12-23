@@ -9,14 +9,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* Основной сайт */}
+        {}
         <Route path="/azhar" element={<MainSite />} />
         <Route path="/azhar/:slug" element={<MainSite />} />
 
-        {/* Все роуты админки */}
+        {}
         <Route path="/azhar/admin/*" element={<AdminRoutes />} />
 
-        {/* Редирект на главную */}
+        {}
         <Route path="/" element={<Navigate to="/azhar" replace />} />
         <Route path="*" element={<Navigate to="/azhar" replace />} />
       </Routes>

@@ -111,8 +111,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ section }) => {
                           {item.content_key_text &&
                             (() => {
                               const text = useText(item.content_key_text);
-                              // This complex text splitting logic should probably be handled differently
-                              // For now, keeping it as is to not break functionality
+                              
+                              
                               const lunchMarkers =
                                 /(Обед:|Lunch:|Ас:|Ас таймағы:|Демалыс:|Түскі ас:)/i;
                               const match = text.match(lunchMarkers);

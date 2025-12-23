@@ -49,7 +49,7 @@ interface MenuItem {
 }
 
 export default function MenuManager() {
-  // Получаем данные из AdminLayout через useOutletContext
+  
   const { systemLang } = useOutletContext<{
     contentLang: "ru" | "kz";
     systemLang: "ru" | "kz";

@@ -31,7 +31,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
   const header = items.find(i => i.item_type === 'header');
   const contentItems = items.filter(i => i.item_type !== 'header');
 
-  // HERO
+  
   if (section.section_type === 'hero') {
     const buttons = items.filter(i => i.item_type === 'description');
     const cards = items.filter(i => i.item_type === 'hero_card');
@@ -67,7 +67,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
     );
   }
 
-  // FEATURES (About)
+  
   if (section.section_type === 'features') {
     const features = contentItems.filter(i => i.item_type === 'feature');
     
@@ -98,7 +98,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
     );
   }
 
-  // CARDS (Services, Values)
+  
   if (section.section_type === 'cards') {
     const cards = contentItems.filter(i => i.item_type === 'card');
     const isValues = section.section_key === 'values';
@@ -138,7 +138,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
     );
   }
 
-  // CONTACT
+  
   if (section.section_type === 'contact') {
     const contactItems = contentItems.filter(i => i.item_type === 'contact_item');
     const leftItems = contactItems.slice(0, 2);
@@ -186,7 +186,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
                           <div className="contact-text-wrapper">
                             {item.content_key_text && (() => {
                               const text = useText(item.content_key_text);
-                              // Разбиваем текст по слову "Обед:" или другим маркерам обеда
+                              
                               const lunchMarkers = /(Обед:|Lunch:|Ас:|Ас таймағы:|Демалыс:|Түскі ас:)/i;
                               const match = text.match(lunchMarkers);
                               if (match) {
@@ -200,7 +200,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
                                   result.push(beforeLunch);
                                 }
                                 if (afterLunch) {
-                                  // Убеждаемся, что после двоеточия один пробел
+                                  
                                   const lunchText = marker + ' ' + afterLunch;
                                   result.push(lunchText);
                                 }
@@ -209,7 +209,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
                                   <p key={idx}>{line}</p>
                                 ));
                               }
-                              // Если нет маркеров обеда, разбиваем по точкам
+                              
                               const lines = text.split(/[.。]/).filter(line => line.trim());
                               if (lines.length > 1) {
                                 return lines.map((line, idx) => (
