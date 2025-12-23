@@ -642,9 +642,8 @@ body {
 
 .form-input:focus {
   outline: none;
-  border-color: #94a3b8;
+  border-color: #e2e8f0;
   background-color: white;
-  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
 }
 
 .menu-item-edit {
@@ -844,13 +843,18 @@ body {
 
 .form-group input {
   padding: 14px 16px;
-  border: 2px solid #eeeeee;
+  border: 1px solid #eeeeee;
   background-color: #eeeeee;
   color: #333;
   border-radius: 10px;
   font-size: 15px;
   transition: all 0.3s;
   width: 100%;
+}
+
+.form-group input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #eeeeee inset;
+  -webkit-text-fill-color: #333;
 }
 
 .login-btn {
