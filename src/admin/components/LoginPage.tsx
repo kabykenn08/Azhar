@@ -11,6 +11,7 @@ const translations = {
     login: "Войти",
     loginProgress: "Вход...",
     backToSite: "Вернуться на сайт",
+    forgotPassword: "Забыли пароль?",
     errorGeneric: "Произошла ошибка при входе",
   },
   kz: {
@@ -21,8 +22,9 @@ const translations = {
     login: "Кіру",
     loginProgress: "Кіру...",
     backToSite: "Сайтқа оралу",
+    forgotPassword: "Құпия сөзді ұмыттыңыз ба?",
     errorGeneric: "Кіру кезінде қате пайда болды",
-  }
+  },
 };
 
 export default function LoginPage() {
@@ -49,7 +51,7 @@ export default function LoginPage() {
         setLoading(false);
       } else {
         // Успешный логин - перенаправляем
-        window.location.href = '/azhar/admin/translations';
+        window.location.href = "/azhar/admin/translations";
       }
     } catch (err) {
       setError(t.errorGeneric);
@@ -79,10 +81,10 @@ export default function LoginPage() {
           <h1>{t.title}</h1>
           <p>{t.subtitle}</p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="login-form">
           {error && <div className="error-message">{error}</div>}
-          
+
           <div className="form-group">
             <label htmlFor="email">{t.email}</label>
             <input
@@ -95,7 +97,7 @@ export default function LoginPage() {
               autoFocus
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password">{t.password}</label>
             <input
@@ -107,12 +109,18 @@ export default function LoginPage() {
               placeholder="Введите пароль"
             />
           </div>
-          
-          <button 
-            type="submit" 
-            className="login-btn"
-            disabled={loading}
-          >
+
+          <div className="leave-btn-2">
+            <a
+              href="https://t.me/kabykenn08"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>{t.forgotPassword}</span>
+            </a>
+          </div>
+
+          <button type="submit" className="login-btn" disabled={loading}>
             {loading ? t.loginProgress : t.login}
           </button>
 
