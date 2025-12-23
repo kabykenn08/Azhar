@@ -187,7 +187,7 @@ export default function DynamicSection({ section }: DynamicSectionProps) {
                             {item.content_key_text && (() => {
                               const text = useText(item.content_key_text);
                               // Разбиваем текст по слову "Обед:" или другим маркерам обеда
-                              const lunchMarkers = /(Обед:|Lunch:|Ас:|Ас таймағы:|Демалыс:)/i;
+                              const lunchMarkers = /(Обед:|Lunch:|Ас:|Ас таймағы:|Демалыс:|Түскі ас:)/i;
                               const match = text.match(lunchMarkers);
                               if (match) {
                                 const marker = match[0];
