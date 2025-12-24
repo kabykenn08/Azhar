@@ -1022,6 +1022,16 @@ footer {
   margin: 0;
 }
 
+.footer-center {
+  display: none;
+  text-align: center;
+}
+
+.footer-center p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /* анимки */
 .service-card,
 .value-item,
@@ -1643,5 +1653,11 @@ footer {
   .footer-copyright p {
     font-size: 0.8125rem;
     line-height: 1.6;
+  }
+}
+
+@media (max-width: 767px) {
+  footer {
+    display: none;
   }
 }
