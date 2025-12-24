@@ -446,7 +446,6 @@ nav a:hover::before {
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(226, 232, 240, 0.8);
   backdrop-filter: blur(10px);
-  animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
